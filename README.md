@@ -25,13 +25,13 @@ Postman giúp tạo yêu cầu HTTP, cấu hình URL, headers, body và quan sá
 ## 5. Kịch bản kiểm thử
 | Mã | Thao tác | Endpoint | Mong đợi | Kết quả Postman |
 |---|---|---|---|---|
-| TC01 | GET danh sách | `/courses` | 200, mảng JSON | Chưa chạy |
-| TC02 | POST tạo mới | `/courses` | 201, tên đúng, có ID | Chưa chạy |
-| TC03 | GET theo ID | `/courses/{{course_id}}` | 200, đúng ID | Chưa chạy |
-| TC04 | PUT cập nhật | `/courses/{{course_id}}` | 200, tên và tín chỉ mới | Chưa chạy |
-| TC05 | DELETE | `/courses/{{course_id}}` | 200, thông báo Deleted | Chưa chạy |
-| TC06 | GET khóa học đã xóa | `/courses/{{course_id}}` | 404, Course not found | Chưa chạy |
-| TC07 | POST tên rỗng, tín chỉ âm | `/courses` | 400, có thông báo lỗi | Chưa chạy |
+| TC01 | GET danh sách | `/courses` | 200, mảng JSON | 200 — Pass (2/2) |
+| TC02 | POST tạo mới | `/courses` | 201, tên đúng, có ID | 201 — Pass (2/2) |
+| TC03 | GET theo ID | `/courses/{{course_id}}` | 200, đúng ID | 200 — Pass (2/2) |
+| TC04 | PUT cập nhật | `/courses/{{course_id}}` | 200, tên và tín chỉ mới | 200 — Pass (2/2) |
+| TC05 | DELETE | `/courses/{{course_id}}` | 200, thông báo Deleted | 200 — Pass (2/2) |
+| TC06 | GET khóa học đã xóa | `/courses/{{course_id}}` | 404, Course not found | 404 — Pass (2/2) |
+| TC07 | POST tên rỗng, tín chỉ âm | `/courses` | 400, có thông báo lỗi | 400 — Pass (2/2) |
 
 404/400 ở TC06/TC07 là kết quả mong đợi của ca kiểm thử âm, không tự động có nghĩa là API bị lỗi.
 
@@ -49,27 +49,59 @@ pm.test("Response data", () => {
 ```
 
 ## 7. Hình minh họa và kết quả thực tế
-**Phần này cần hoàn thiện bằng ảnh chụp lần chạy Postman thực tế trước khi nộp.** Chưa có kết quả chạy Postman được xác nhận trong bản báo cáo này.
 
-Lưu ảnh vào thư mục `images`, sau đó thêm các dòng Markdown sau khi đã có file:
-```markdown
-![Collection và biến URL](images/01-collection.png)
-![GET danh sách](images/02-get.png)
-![POST tạo khóa học và test](images/03-post.png)
-![PUT cập nhật](images/04-put.png)
-![DELETE khóa học](images/05-delete.png)
-![GET sau xóa trả 404](images/06-not-found.png)
-![POST dữ liệu sai trả 400](images/07-invalid.png)
-![Kết quả Collection Runner](images/08-runner.png)
-```
-Ảnh request cần thấy method, URL, status code, response body và Test Results. Sau khi chạy, thay cột kết quả bằng status thực tế và Pass/Fail; ghi tổng số request và assertions từ Runner. Nếu tất cả đúng mong đợi, có 7 request và 14 assertions đạt.
+Ảnh chụp Postman Desktop ngày 07/10/2026 cho thấy cả 7 request có status và response phù hợp kịch bản; mỗi ảnh hiển thị Test Results 2/2, tổng cộng 14/14 phép kiểm tra đạt trên các ảnh riêng lẻ. Chưa có ảnh Collection Runner để xác nhận một lượt chạy liên tục.
+
+**Lưu ý về ID:** ảnh TC02 ghi ID = 2, còn TC03–TC05 ghi ID = 3. Vì vậy bộ ảnh không chứng minh một chuỗi tạo → đọc → sửa → xóa liên tục trên cùng ID. Khi chạy lại để xác nhận toàn bộ luồng, cần giữ server hoạt động, chạy 01–07 theo đúng thứ tự và dùng `course_id` do request 02 lưu.
+
+### TC01 — GET danh sách
+
+Trả về mảng chứa khóa học ban đầu, HTTP 200; Test Results 2/2.
+
+![TC01: GET danh sách](images/01-get-list.png)
+
+### TC02 — POST tạo khóa học
+
+Tạo khóa học Postman co ban, credits = 3, ID = 2; HTTP 201; Test Results 2/2.
+
+![TC02: POST tạo khóa học](images/02-post-create.png)
+
+### TC03 — GET theo ID
+
+Đọc khóa học ID = 3, tên Postman co ban, credits = 3; HTTP 200; Test Results 2/2.
+
+![TC03: GET theo ID](images/03-get-by-id.png)
+
+### TC04 — PUT cập nhật
+
+Cập nhật ID = 3 thành Postman nang cao, credits = 4; HTTP 200; Test Results 2/2.
+
+![TC04: PUT cập nhật](images/04-put-update.png)
+
+### TC05 — DELETE khóa học
+
+Xóa ID = 3, trả về Deleted; HTTP 200; Test Results 2/2.
+
+![TC05: DELETE khóa học](images/05-delete.png)
+
+### TC06 — GET sau xóa
+
+Trả về Course not found; HTTP 404; Test Results 2/2. Đây là kết quả mong đợi sau khi xóa.
+
+![TC06: GET sau xóa](images/06-get-deleted.png)
+
+### TC07 — POST dữ liệu sai
+
+Từ chối dữ liệu không hợp lệ với thông báo name and positive integer credits required; HTTP 400; Test Results 2/2.
+
+![TC07: POST dữ liệu sai](images/07-post-invalid.png)
 
 ## 8. Nhận xét
-Bộ kiểm thử bao gồm luồng tạo → đọc → sửa → xóa và hai trường hợp lỗi. Các phép kiểm tra dữ liệu giúp phát hiện trường hợp status đúng nhưng response sai. Chưa kiểm thử xác thực, tải lớn hay truy cập đồng thời vì API demo chưa có các chức năng đó. Kết luận đạt/chưa đạt cần dựa trên lần chạy thực tế ở mục 7.
+Bộ kiểm thử bao gồm luồng tạo → đọc → sửa → xóa và hai trường hợp lỗi. Các phép kiểm tra dữ liệu giúp phát hiện trường hợp status đúng nhưng response sai. Chưa kiểm thử xác thực, tải lớn hay truy cập đồng thời vì API demo chưa có các chức năng đó. Các kết quả riêng lẻ đều đạt theo 7 ảnh ở mục 7; cần thêm một lượt Runner nếu muốn xác nhận toàn bộ chuỗi dùng cùng ID.
 
 ## 9. Tài liệu tham khảo
 - Video được giao: https://www.youtube.com/watch?v=MFxk5BZulVU
 - Tham khảo bố cục: https://github.com/quocbinh93/CallPostMan
 - Postman: https://learning.postman.com/docs/introduction/overview/
 
-Bài sử dụng API và Collection riêng; ảnh kết quả cần chụp từ bài thực hành này.
+Bài sử dụng API và Collection riêng; ảnh kết quả được chụp từ lần thực hành Postman của sinh viên.

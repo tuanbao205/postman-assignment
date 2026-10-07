@@ -18,9 +18,9 @@ Bài thực hành sử dụng GET, POST, PUT, DELETE để kiểm thử chức n
 - **Dữ liệu:** khóa học có `id`, `name`, `credits`; dữ liệu lưu trong RAM.
 - **Phương pháp:** gửi request thủ công, quan sát response và dùng script Post-response để kiểm tra status code, nội dung JSON.
 - **Biến Collection:** `base_url` lưu URL API; `course_id` lưu ID từ response của request 02.
-- **Sản phẩm:** [Collection kiểm thử](Postman_Assignment.postman_collection.json) và 7 ảnh kết quả bên dưới.
+- **Sản phẩm:** [Collection kiểm thử](https://github.com/tuanbao205/postman-assignment/blob/9c596f5c28acb21ad7b24eb1fa136eded4e0cd01/Postman_Assignment.postman_collection.json) và 7 ảnh kết quả bên dưới.
 
-Để chạy lại, tải [server của lần thực hành](https://github.com/tuanbao205/postman-assignment/blob/d3f4da5f58a47dce77c7cb069b189e259818df72/server.py), chạy `py server.py`, rồi Import collection vào Postman. Giữ server hoạt động và chạy request theo thứ tự **01–07**. Server được lưu trong lịch sử repo để bộ nộp hiện tại chỉ gồm báo cáo, collection và ảnh.
+Để chạy lại, tải [server của lần thực hành](https://github.com/tuanbao205/postman-assignment/blob/d3f4da5f58a47dce77c7cb069b189e259818df72/server.py), chạy `py server.py`, rồi Import collection vào Postman. Giữ server hoạt động và chạy request theo thứ tự **01–07**. Server và collection được lưu trong lịch sử repo; bản nộp hiện tại chỉ gồm README, với ảnh minh họa liên kết từ phiên bản đã lưu.
 
 ## 3. Tổng hợp kịch bản kiểm thử
 
@@ -44,7 +44,7 @@ Bài thực hành sử dụng GET, POST, PUT, DELETE để kiểm thử chức n
 
 **Kết quả thực tế:** Trả về mảng chứa khóa học ban đầu, HTTP 200; Test Results 2/2.
 
-![TC01: GET danh sách](images/01-get-list.png)
+![TC01: GET danh sách](https://raw.githubusercontent.com/tuanbao205/postman-assignment/9c596f5c28acb21ad7b24eb1fa136eded4e0cd01/images/01-get-list.png)
 
 ### TC02 — POST tạo khóa học
 
@@ -52,7 +52,7 @@ Bài thực hành sử dụng GET, POST, PUT, DELETE để kiểm thử chức n
 
 **Kết quả thực tế:** Tạo khóa học Postman co ban, credits = 3, ID = 2; HTTP 201; Test Results 2/2.
 
-![TC02: POST tạo khóa học](images/02-post-create.png)
+![TC02: POST tạo khóa học](https://raw.githubusercontent.com/tuanbao205/postman-assignment/9c596f5c28acb21ad7b24eb1fa136eded4e0cd01/images/02-post-create.png)
 
 ### TC03 — GET theo ID
 
@@ -60,7 +60,7 @@ Bài thực hành sử dụng GET, POST, PUT, DELETE để kiểm thử chức n
 
 **Kết quả thực tế:** Đọc khóa học ID = 3, tên Postman co ban, credits = 3; HTTP 200; Test Results 2/2.
 
-![TC03: GET theo ID](images/03-get-by-id.png)
+![TC03: GET theo ID](https://raw.githubusercontent.com/tuanbao205/postman-assignment/9c596f5c28acb21ad7b24eb1fa136eded4e0cd01/images/03-get-by-id.png)
 
 ### TC04 — PUT cập nhật
 
@@ -68,7 +68,7 @@ Bài thực hành sử dụng GET, POST, PUT, DELETE để kiểm thử chức n
 
 **Kết quả thực tế:** Cập nhật ID = 3 thành Postman nang cao, credits = 4; HTTP 200; Test Results 2/2.
 
-![TC04: PUT cập nhật](images/04-put-update.png)
+![TC04: PUT cập nhật](https://raw.githubusercontent.com/tuanbao205/postman-assignment/9c596f5c28acb21ad7b24eb1fa136eded4e0cd01/images/04-put-update.png)
 
 ### TC05 — DELETE khóa học
 
@@ -76,7 +76,7 @@ Bài thực hành sử dụng GET, POST, PUT, DELETE để kiểm thử chức n
 
 **Kết quả thực tế:** Xóa ID = 3, trả về Deleted; HTTP 200; Test Results 2/2.
 
-![TC05: DELETE khóa học](images/05-delete.png)
+![TC05: DELETE khóa học](https://raw.githubusercontent.com/tuanbao205/postman-assignment/9c596f5c28acb21ad7b24eb1fa136eded4e0cd01/images/05-delete.png)
 
 ### TC06 — GET sau xóa
 
@@ -84,7 +84,7 @@ Bài thực hành sử dụng GET, POST, PUT, DELETE để kiểm thử chức n
 
 **Kết quả thực tế:** Trả về Course not found; HTTP 404; Test Results 2/2. Đây là kết quả mong đợi sau khi xóa.
 
-![TC06: GET sau xóa](images/06-get-deleted.png)
+![TC06: GET sau xóa](https://raw.githubusercontent.com/tuanbao205/postman-assignment/9c596f5c28acb21ad7b24eb1fa136eded4e0cd01/images/06-get-deleted.png)
 
 ### TC07 — POST dữ liệu sai
 
@@ -92,7 +92,7 @@ Bài thực hành sử dụng GET, POST, PUT, DELETE để kiểm thử chức n
 
 **Kết quả thực tế:** Từ chối dữ liệu không hợp lệ với thông báo name and positive integer credits required; HTTP 400; Test Results 2/2.
 
-![TC07: POST dữ liệu sai](images/07-post-invalid.png)
+![TC07: POST dữ liệu sai](https://raw.githubusercontent.com/tuanbao205/postman-assignment/9c596f5c28acb21ad7b24eb1fa136eded4e0cd01/images/07-post-invalid.png)
 
 ## 5. Test script, kết quả và nhận xét
 

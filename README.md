@@ -2,7 +2,6 @@
 
 **Sinh viên:** Hoàng Tuấn Bảo  
 **MSSV:** 23010194  
-**Ngày kiểm thử:** 07/10/2026  
 **Đối tượng kiểm thử:** API quản lý khóa học
 
 ## 1. Giới thiệu Postman và mục tiêu
@@ -123,11 +122,3 @@ Các ảnh cho thấy kết quả riêng lẻ phù hợp mong đợi. HTTP 404 v
 
 Qua bài thực hành, sinh viên sử dụng được các phương thức HTTP cơ bản, biến Collection và test script. Phạm vi bài chưa bao gồm xác thực, kiểm thử tải hoặc truy cập đồng thời.
 
-## 6. Tài liệu tham khảo
-
-- [Video hướng dẫn được giao](https://www.youtube.com/watch?v=MFxk5BZulVU).
-- [CallPostMan — tham khảo giới thiệu và trình bày ảnh kiểm thử](https://github.com/quocbinh93/CallPostMan).
-- [New Collection of APIs — tham khảo bố cục kịch bản, mong đợi, thực tế và tổng hợp kết quả](https://github.com/gtaAsian/New-Collection-of-APIs/tree/main).
-- [Tài liệu Postman](https://learning.postman.com/docs/introduction/overview/).
-
-Ảnh minh họa và kết quả trong báo cáo thuộc bài thực hành của sinh viên.

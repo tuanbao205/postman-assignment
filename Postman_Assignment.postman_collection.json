@@ -1,0 +1,200 @@
+{
+  "info": {
+    "name": "Bai thuc hanh Postman - Hoang Tuan Bao",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000"
+    },
+    {
+      "key": "course_id",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "01 GET danh sach",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{base_url}}/courses"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\",()=>pm.response.to.have.status(200));",
+              "pm.test(\"Response data\",()=>{pm.expect(pm.response.json()).to.be.an(\"array\");});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 POST tao khoa hoc",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/courses",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"Postman co ban\", \"credits\": 3}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 201\",()=>pm.response.to.have.status(201));",
+              "pm.test(\"Response data\",()=>{const d=pm.response.json(); pm.expect(d.name).to.eql(\"Postman co ban\"); pm.expect(d.credits).to.eql(3); pm.expect(d.id).to.be.a(\"number\"); pm.collectionVariables.set(\"course_id\",d.id);});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 GET theo ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{base_url}}/courses/{{course_id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\",()=>pm.response.to.have.status(200));",
+              "pm.test(\"Response data\",()=>{pm.expect(pm.response.json().id).to.eql(Number(pm.collectionVariables.get(\"course_id\")));});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 PUT cap nhat",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/courses/{{course_id}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"Postman nang cao\", \"credits\": 4}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\",()=>pm.response.to.have.status(200));",
+              "pm.test(\"Response data\",()=>{pm.expect(pm.response.json().name).to.eql(\"Postman nang cao\"); pm.expect(pm.response.json().credits).to.eql(4);});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "05 DELETE",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{base_url}}/courses/{{course_id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\",()=>pm.response.to.have.status(200));",
+              "pm.test(\"Response data\",()=>{pm.expect(pm.response.json().message).to.eql(\"Deleted\");});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "06 GET sau xoa",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{base_url}}/courses/{{course_id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 404\",()=>pm.response.to.have.status(404));",
+              "pm.test(\"Response data\",()=>{pm.expect(pm.response.json().error).to.eql(\"Course not found\");});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "07 POST du lieu sai",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/courses",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"\", \"credits\": -1}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 400\",()=>pm.response.to.have.status(400));",
+              "pm.test(\"Response data\",()=>{pm.expect(pm.response.json()).to.have.property(\"error\");});"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
